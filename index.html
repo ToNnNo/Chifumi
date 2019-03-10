@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi fu mi</title>
+    <script src="./js/Shape.enum.js"></script>
+    <script src="./js/Shape.js"></script>
+    <script src="./js/ShapeFactory.js"></script>
+    <script src="./js/Player.js"></script>
+    <script src="./js/Computer.js"></script>
+    <script src="./js/Game.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function(){
+
+            let computer = new Computer();
+            let player = new Player("ToNo");
+
+            let game = new Game(player, computer);
+            let buttons = document.querySelectorAll(".btn");
+
+            let message = document.querySelector("#message");
+
+            let firstPlayer = document.querySelector("#firstPlayer");
+            let secondPlayer = document.querySelector("#secondPlayer");
+
+            let firstPlayerName = document.querySelector("#firstPlayerName");
+            let secondPlayerName = document.querySelector("#secondPlayerName");
+
+            let firstPlayerScore = document.querySelector("#firstPlayerScore");
+            let secondPlayerScore = document.querySelector("#secondPlayerScore");
+
+            firstPlayerName.innerText = player.name;
+            secondPlayerName.innerText = computer.name;
+
+            firstPlayerScore.innerText = player.point;
+            secondPlayerScore.innerText = computer.point;
+
+            for(let btn of buttons){
+                btn.addEventListener('click', function(){
+                    player.shape = ShapeFactory.createShape(this.dataset.shape);
+                    computer.randomShape();
+
+                    game.player1 = player;
+                    game.player2 = computer;
+
+                    message.innerText = game.comparator();
+
+                    firstPlayerScore.innerText = game.player1.point;
+                    secondPlayerScore.innerText = game.player2.point;
+
+                    firstPlayer.innerText = game.player1.shape.name;
+                    secondPlayer.innerText = game.player2.shape.name;
+                });
+            }
+        });
+    </script>
+    <style>
+        * { box-sizing: border-box }
+        .big{ font-size: 1.5em }
+        .container{ width: 500px; margin: auto; border: 1px solid; border-radius: 3px }
+        .d-inline-block{ display: inline-block }
+        .w-33{ width: 32% }
+        .w-45{ width: 44% }
+        .w-10{ width: 10% }
+        .text-center{ text-align: center }
+        .text-left{ text-align: left }
+        .text-right{ text-align: right }
+        .my-2{ margin-top: 1em; margin-bottom: 1em }
+    </style>
+</head>
+<body>
+<main class="container">
+    <div>
+        <div class="d-inline-block w-33"></div>
+        <div class="d-inline-block w-33 text-center">
+            <h1 class="text-center">Chi fu mi</h1>
+        </div>
+        <div class="d-inline-block w-33"></div>
+    </div>
+    
+    <div>
+        <div class="d-inline-block w-33 text-right">
+            <small>( <span id="firstPlayerScore"></span> )</small> <span id="firstPlayerName"></span>
+        </div>
+
+        <div class="d-inline-block w-33 text-center big">VS</div>
+
+        <div class="d-inline-block w-33 text-left">
+            <span id="secondPlayerName"></span> <small>( <span id="secondPlayerScore"></span> )</small>
+        </div>
+    </div>
+
+    <div>
+        <div class="d-inline-block w-33 text-right">
+            <span id="firstPlayer"></span>
+        </div>
+
+        <div class="d-inline-block w-33 text-center">
+            <p id="message"></p>
+        </div>
+
+        <div class="d-inline-block w-33 text-left">
+            <span id="secondPlayer"></span>
+        </div>
+    </div>
+
+    <div class="my-2">
+        <div class="text-center d-inline-block w-33">
+            <button class="btn" data-shape="rock">Pierre</button>
+        </div>
+        <div class="text-center d-inline-block w-33">
+            <button class="btn" data-shape="paper">Feuille</button>
+        </div>
+        <div class="text-center d-inline-block w-33">
+            <button class="btn" data-shape="scissors">Ciseaux</button>
+        </div>
+    </div>
+
+</main>
+
+</body>
+</html>
