@@ -11,7 +11,7 @@ class Shape {
         if(shape instanceof Shape)
             return this.name === shape.name;
         else
-            throw new Error(`first parameter should be a instance of "Shape", "${typeof shape}" instead`);
+            throw new Error(`First parameter should be a instance of "Shape", "${typeof shape}" instead`);
     }
 
     isWinnerOf(shape){
